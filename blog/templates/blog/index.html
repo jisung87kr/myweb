@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="list_area">
+        {% for cate in cates %}
+            <h1>{{cate.cate}}</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>카테고리</th>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>날짜</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in posts%}
+                    {% if cate == post.cate %}
+                    <tr>
+                        <td>{{post.cate}}</td>
+                        <td>{{post.pk}}</td>
+                        <td>
+                            <a href="{% url 'blog:post_view' post.pk %}">{{post.title}}</a>
+                        </td>
+                        <td>{{post.author}}</td>
+                        <td>{{post.published_date}}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+        <div class="func_wrap">
+            <a href="{% url 'blog:post_write' %}" class="btn btn-default">글 작성</a>
+        </div>
+    </div>
+{% endblock %}
